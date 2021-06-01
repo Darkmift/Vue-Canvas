@@ -42,6 +42,7 @@ export default {
 			const { clientWidth, clientHeight } = this.$refs.screen;
 			this.width = clientWidth - (clientWidth / 100) * 2;
 			this.height = clientHeight - (clientHeight / 100) * 2;
+			this.canvas = this.$refs.canvas.getContext("2d");
 		},
 		//CANVAS METHODS
 		drawLine(x1, y1, x2, y2) {
@@ -92,7 +93,6 @@ export default {
 	},
 	mounted() {
 		window.addEventListener("resize", this.onResize);
-		this.canvas = this.$refs.canvas.getContext("2d");
 		this.onResize();
 		this.setBackground();
 	},
