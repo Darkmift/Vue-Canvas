@@ -58,6 +58,7 @@ export default {
 			x: 0,
 			y: 0,
 			isDrawing: false,
+			isFirstDrawing: true,
 		};
 	},
 	methods: {
@@ -154,7 +155,9 @@ export default {
 	mounted() {
 		window.addEventListener("resize", this.onResize);
 		this.onResize();
-		this.setBackground();
+		this.$nextTick(() => {
+			this.setBackground();
+		});
 	},
 	beforeDestroy() {
 		window.removeEventListener("resize", this.onResize);
