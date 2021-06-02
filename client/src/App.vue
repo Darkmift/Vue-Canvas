@@ -33,7 +33,7 @@ body {
 	.controls,
 	.draw-screen,
 	.album {
-		border: 1px solid #000;
+		// border: 1px solid #000;
 		padding: 10px;
 	}
 
@@ -41,7 +41,7 @@ body {
 		min-height: 15vh;
 	}
 	.draw-screen {
-		height: 85vh;
+		height: 80vh;
 	}
 	.album {
 		height: 100vh;

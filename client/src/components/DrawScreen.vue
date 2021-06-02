@@ -1,24 +1,51 @@
 <template>
-	<div class="draw-screen" ref="screen">
-		<canvas
-			ref="canvas"
-			class="canvas"
-			:width="width"
-			:height="height"
-			@mousemove="draw"
-			@mousedown="beginDrawing"
-			@mouseup="stopDrawing"
-		/>
+	<div class="draw-screen flex-column">
+		<div ref="screen" class="screen">
+			<canvas
+				ref="canvas"
+				class="canvas"
+				:width="width"
+				:height="height"
+				@mousemove="draw"
+				@mousedown="beginDrawing"
+				@mouseup="stopDrawing"
+			/>
+		</div>
+		<div class="info flex-row flex-center">
+			<span
+				>Pos:{{ $store.getters.mouseCoords.x }},{{
+					$store.getters.mouseCoords.y
+				}}</span
+			>
+			<span>Brush Size:{{ $store.getters.lineWidth }}</span>
+			<span>Brush Color:{{ $store.getters.strokeStyle }}</span>
+		</div>
 	</div>
 </template>
 
-<style scoped>
-.canvas {
-	border: 1px solid #000;
+<style scoped lang="scss">
+.draw-screen {
+	margin-left: 30px;
+	.screen {
+		// flex: 0 1 90%;
+		min-height: 75vh;
+	}
+	.canvas {
+		border: 3px dashed #000;
+	}
+	.info {
+		// flex: 0 1 10%;
+		height: 10vh;
+		span {
+			padding: 0 10px;
+		}
+	}
 }
 </style>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
 	name: "DrawScreen",
 	data() {
@@ -93,6 +120,7 @@ export default {
 		selectedBackground() {
 			return this.$store.getters.background;
 		},
+		...mapGetters(["mouseCoords", "lineWidth", "strokeStyle"]),
 	},
 	mounted() {
 		window.addEventListener("resize", this.onResize);

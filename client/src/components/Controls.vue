@@ -34,10 +34,6 @@
 <style scoped lang="scss">
 .controls {
 	padding: 20px;
-	.title {
-		margin: 10px;
-		text-align: center;
-	}
 	.control-container {
 		.row {
 			margin: auto;
