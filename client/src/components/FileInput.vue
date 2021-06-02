@@ -32,7 +32,7 @@ export default {
 	},
 	methods: {
 		previewFiles(event) {
-			this.$emit("fileInput", event.target.files);
+			this.$emit("fileInput", event.target.files[0]);
 		},
 	},
 };

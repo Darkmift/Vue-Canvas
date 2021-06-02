@@ -61,25 +61,40 @@ export default {
 		};
 	},
 	methods: {
+		drawImage(imgFile) {
+			const img = new Image();
+			img.onload = () => {
+				this.setCanvasContext();
+				const ctx = this.canvas;
+				console.log(
+					"🚀 ~ file: DrawScreen.vue ~ line 68 ~ drawImage ~ ctx",
+					ctx
+				);
+				ctx.drawImage(img, 0, 0, this.width, this.height);
+			};
+			img.src = URL.createObjectURL(imgFile);
+		},
 		storeCoordinates() {
-			console.log({ x: this.x, y: this.y });
 			this.$store.commit({
 				type: "setMouseCoords",
 				mouseCoords: { x: this.x, y: this.y },
 			});
 		},
+		setCanvasContext() {
+			this.canvas = this.$refs.canvas.getContext("2d");
+		},
 		onResize() {
 			const { clientWidth, clientHeight } = this.$refs.screen;
 			this.width = clientWidth - (clientWidth / 100) * 2;
 			this.height = clientHeight - (clientHeight / 100) * 2;
-			this.canvas = this.$refs.canvas.getContext("2d");
+			this.setCanvasContext();
 		},
 		//CANVAS METHODS
 		drawLine(x1, y1, x2, y2) {
 			const ctx = this.canvas;
 			ctx.beginPath();
-			ctx.strokeStyle = "black";
-			ctx.lineWidth = 1;
+			ctx.strokeStyle = this.strokeStyle;
+			ctx.lineWidth = this.lineWidth;
 			ctx.moveTo(x1, y1);
 			ctx.lineTo(x2, y2);
 			ctx.stroke();
@@ -107,8 +122,9 @@ export default {
 			}
 		},
 		setBackground() {
+			this.setCanvasContext();
 			const ctx = this.canvas;
-			ctx.fillStyle = this.selectedBackground;
+			ctx.fillStyle = this.background;
 			console.log(
 				"🚀 ~ file: DrawScreen.vue ~ line 92 ~ setBackground ~ this.width",
 				{ ctx, w: this.width, canvasEl: this.$refs.canvas.width }
@@ -116,11 +132,24 @@ export default {
 			ctx.fillRect(0, 0, this.width, this.height);
 		},
 	},
-	computed: {
-		selectedBackground() {
-			return this.$store.getters.background;
+	watch: {
+		inputFile(imgFile) {
+			console.log({ imgFile });
+			this.drawImage(imgFile);
 		},
-		...mapGetters(["mouseCoords", "lineWidth", "strokeStyle"]),
+		background(color) {
+			console.log({ color });
+			this.setBackground(color);
+		},
+	},
+	computed: {
+		...mapGetters([
+			"mouseCoords",
+			"lineWidth",
+			"strokeStyle",
+			"inputFile",
+			"background",
+		]),
 	},
 	mounted() {
 		window.addEventListener("resize", this.onResize);
