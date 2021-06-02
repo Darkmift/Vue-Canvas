@@ -27,7 +27,7 @@ body {
 
 	/**GRID */
 	display: grid;
-	grid-template-columns: 2.5fr 1fr;
+	grid-template-columns: 70vw 30vw;
 	background-color: #7aa5c8;
 
 	.controls,
@@ -38,10 +38,10 @@ body {
 	}
 
 	.controls {
-		height: 20vh;
+		min-height: 15vh;
 	}
 	.draw-screen {
-		height: 80vh;
+		height: 85vh;
 	}
 	.album {
 		height: 100vh;

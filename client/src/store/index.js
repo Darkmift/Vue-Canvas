@@ -7,6 +7,9 @@ export default new Vuex.Store({
     state: {
         background: '#d9cbca',
         mouseCoords: { x: 0, y: 0 },
+        strokeStyle: '#000',
+        lineWidth: 1,
+        inputFile: null,
     },
     getters: {
         background({ background }) {
@@ -15,16 +18,32 @@ export default new Vuex.Store({
         mouseCoords({ mouseCoords }) {
             return mouseCoords;
         },
+        strokeStyle({ strokeStyle }) {
+            return strokeStyle;
+        },
+        lineWidth({ lineWidth }) {
+            return lineWidth;
+        },
+        inputFile({ inputFile }) {
+            return inputFile;
+        },
     },
     mutations: {
+        setBackground(state, { background }) {
+            state.background = background;
+        },
         setMouseCoords(state, { mouseCoords }) {
             state.mouseCoords = mouseCoords;
-            console.log(
-                '🚀 ~ file: index.js ~ line 22 ~ setMouseCoords ~   state.mouseCoords ',
-                state.mouseCoords
-            );
+        },
+        setStrokeStyle(state, { strokeStyle }) {
+            state.strokeStyle = strokeStyle;
+        },
+        setLineWidth(state, { lineWidth }) {
+            state.lineWidth = lineWidth;
+        },
+        setInputFile(state, { inputFile }) {
+            state.inputFile = inputFile;
         },
     },
     actions: {},
-    modules: {},
 });

@@ -12,6 +12,11 @@
     flex-direction: row;
 }
 
+.space-between {
+    @extend .flex;
+    justify-content: space-between;
+}
+
 .flex-center {
     justify-content: center;
     align-items: center;
