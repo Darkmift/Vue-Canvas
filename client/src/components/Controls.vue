@@ -5,12 +5,12 @@
 			<div class="row flex-row flex-center">
 				<range-input
 					label="Size"
-					@newRange="handleInputChange('range', $event)"
+					@newRange="handleInputChange('lineWidth', $event)"
 				/>
 				<!-- picker color draw -->
 				<color-picker
 					label="Color"
-					@newColor="handleInputChange('color', $event)"
+					@newColor="handleInputChange('strokeStyle', $event)"
 				/>
 				<!-- picker background -->
 				<color-picker
@@ -23,7 +23,9 @@
 					label="Load image"
 					@fileInput="handleInputChange('fileInput', $event)"
 				/>
-				<button>Clear</button>
+				<button @click="handleInputChange('background', '#fff')">
+					Clear
+				</button>
 			</div>
 		</div>
 	</div>
@@ -49,6 +51,8 @@
 </style>
 
 <script>
+import { mapMutations } from "vuex";
+
 import ColorPicker from "./ColorPicker";
 import FileInput from "./FileInput";
 import RangeInput from "./RangeInput";
@@ -58,7 +62,28 @@ export default {
 	methods: {
 		handleInputChange(type, event) {
 			console.log({ type, event });
+			switch (type) {
+				case "lineWidth":
+					this.setLineWidth({ lineWidth: event });
+					break;
+				case "background":
+					this.setBackground({ background: event });
+
+					break;
+				case "strokeStyle":
+					this.setStrokeStyle({ strokeStyle: event });
+					break;
+				case "fileInput":
+					this.setInputFile({ inputFile: event });
+					break;
+			}
 		},
+		...mapMutations([
+			"setBackground",
+			"setStrokeStyle",
+			"setLineWidth",
+			"setInputFile",
+		]),
 	},
 };
 </script>
