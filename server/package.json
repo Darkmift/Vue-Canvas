@@ -5,7 +5,12 @@
     "main": "server.js",
     "scripts": {
         "start": "node server.js",
-        "start:dev": "nodemon server.js"
+        "start:dev": "nodemon  server.js"
+    },
+    "nodemonConfig": {
+        "ignore": [
+            "data/*"
+        ]
     },
     "author": "Avi E. Koenig",
     "license": "ISC",

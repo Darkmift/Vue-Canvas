@@ -1,6 +1,8 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
+import { imageService } from '../services/image.service';
+
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -68,7 +70,6 @@ export default new Vuex.Store({
             state.triggerSave = !state.triggerSave;
         },
         deleteAllImages(state) {
-            state.triggerSave = !state.triggerSave;
             state.images = [];
         },
     },
@@ -76,6 +77,7 @@ export default new Vuex.Store({
         async saveImage({ state, commit }, { image }) {
             try {
                 //do server thingies
+                await imageService.saveImage(image);
                 commit({ type: 'saveImage', image });
                 state.background = state.defaultBackground;
             } catch (error) {
@@ -85,6 +87,7 @@ export default new Vuex.Store({
         async wipeAll({ commit }) {
             try {
                 //wait for server delete then...
+                await imageService.deleteAllImages();
                 commit({ type: 'deleteAllImages' });
             } catch (error) {
                 console.error(error);

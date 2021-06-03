@@ -63,8 +63,8 @@ export default {
 		},
 		closeModal(e) {
 			this.toggleModal.isShown = false;
-			confirmDelete = e;
-			if (confirmDelete) this.deleteAlbum();
+			//e===confirmation boolean to delete all
+			if (e) this.deleteAlbum();
 		},
 		...mapMutations(["triggerSave"]),
 	},
