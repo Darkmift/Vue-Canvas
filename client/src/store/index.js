@@ -53,9 +53,9 @@ export default new Vuex.Store({
         setInputFile(state, { inputFile }) {
             state.inputFile = inputFile;
         },
-        // setImages(state, { images }) {
-        //     state.images = images;
-        // },
+        setImages(state, { images }) {
+            state.images = images;
+        },
         toggleTrigger({ triggers }, { key }) {
             if (triggers.hasOwnProperty(key)) {
                 triggers[key] = !triggers[key];
@@ -65,11 +65,10 @@ export default new Vuex.Store({
         },
     },
     actions: {
-        async saveImage({ state }, { image }) {
+        async saveImage({ commit, state }, { image }) {
             try {
                 //do server thingies
-                state.images.unshift(image);
-                // commit({ type: 'setImages', images: [image, ...state.images] });
+                commit({ type: 'setImages', images: [image, ...state.images] });
             } catch (error) {
                 console.error(error);
             }

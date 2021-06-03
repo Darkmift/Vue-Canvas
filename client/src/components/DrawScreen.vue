@@ -132,6 +132,14 @@ export default {
 			);
 			ctx.fillRect(0, 0, this.width, this.height);
 		},
+		async saveNewImage() {
+			try {
+				const newImage = this.$refs.canvas.toDataURL("image/png", 1.0);
+				this.$store.dispatch({ type: "saveImage", image: newImage });
+			} catch (error) {
+				console.error(error);
+			}
+		},
 	},
 	watch: {
 		inputFile(imgFile) {
@@ -142,6 +150,13 @@ export default {
 			console.log({ color });
 			this.setBackground(color);
 		},
+		triggers: {
+			handler(newVal) {
+				console.log({ trigger: newVal.saveNew });
+				this.saveNewImage();
+			},
+			deep: true,
+		},
 	},
 	computed: {
 		...mapGetters([
@@ -150,6 +165,7 @@ export default {
 			"strokeStyle",
 			"inputFile",
 			"background",
+			"triggers",
 		]),
 	},
 	mounted() {
