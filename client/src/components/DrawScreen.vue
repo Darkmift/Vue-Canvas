@@ -136,6 +136,7 @@ export default {
 			try {
 				const newImage = this.$refs.canvas.toDataURL("image/png", 1.0);
 				this.$store.dispatch({ type: "saveImage", image: newImage });
+				this.setBackground();
 			} catch (error) {
 				console.error(error);
 			}
@@ -149,6 +150,13 @@ export default {
 		background(color) {
 			console.log({ color });
 			this.setBackground(color);
+		},
+		background(color) {
+			console.log({ color });
+			this.setBackground(color);
+		},
+		triggerSave() {
+			this.saveNewImage();
 		},
 		triggers: {
 			handler(newVal) {
@@ -165,7 +173,8 @@ export default {
 			"strokeStyle",
 			"inputFile",
 			"background",
-			"triggers",
+			"defaultBackground",
+			"triggerSave",
 		]),
 	},
 	mounted() {

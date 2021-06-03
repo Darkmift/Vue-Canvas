@@ -5,7 +5,14 @@
 			<button @click="saveCanvas">Save image</button>
 			<button @click="openModal">Delete All</button>
 		</div>
-		<div class="container images flex-column"></div>
+		<div class="container images flex-column">
+			<img
+				v-for="(image, idx) in images"
+				:src="image"
+				:alt="'canvas image' + idx"
+				:key="idx"
+			/>
+		</div>
 		<confirm-delete-modal
 			:toggleModal="toggleModal"
 			@close="closeModal($event)"
@@ -38,22 +45,27 @@ export default {
 			toggleModal: { isShown: false },
 		};
 	},
+	computed: {
+		images() {
+			return this.$store.getters.images;
+		},
+	},
 	methods: {
 		saveCanvas() {
-			this.toggleTrigger({ key: "saveNew" });
+			this.triggerSave();
 		},
 		openModal() {
 			this.toggleModal.isShown = true;
 		},
 		deleteAlbum() {
-			this.toggleTrigger({ key: "wipeAll" });
+			this.$store.dispatch({ type: "wipeAll" });
 		},
 		closeModal(e) {
 			this.toggleModal.isShown = false;
 			confirmDelete = e;
 			if (confirmDelete) this.deleteAlbum();
 		},
-		...mapMutations(["toggleTrigger"]),
+		...mapMutations(["triggerSave"]),
 	},
 };
 </script>

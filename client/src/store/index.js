@@ -5,18 +5,23 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
     state: {
+        defaultBackground: '#d9cbca',
         background: '#d9cbca',
         mouseCoords: { x: 0, y: 0 },
         strokeStyle: '#000',
         lineWidth: 1,
         inputFile: null,
         //will toggle values onclick
-        triggers: { saveNew: false, wipeAll: false },
+        // triggers: { saveNew: false, wipeAll: false },
+        triggerSave: false,
         images: [],
     },
     getters: {
         background({ background }) {
             return background;
+        },
+        defaultBackground({ defaultBackground }) {
+            return defaultBackground;
         },
         mouseCoords({ mouseCoords }) {
             return mouseCoords;
@@ -30,8 +35,8 @@ export default new Vuex.Store({
         inputFile({ inputFile }) {
             return inputFile;
         },
-        triggers({ triggers }) {
-            return triggers;
+        triggerSave({ triggerSave }) {
+            return triggerSave;
         },
         images({ images }) {
             return images;
@@ -56,27 +61,31 @@ export default new Vuex.Store({
         setImages(state, { images }) {
             state.images = images;
         },
-        toggleTrigger({ triggers }, { key }) {
-            if (triggers.hasOwnProperty(key)) {
-                triggers[key] = !triggers[key];
-                return;
-            }
-            console.error(`${key} not in triggers`);
+        saveImage(state, { image }) {
+            state.images.unshift(image);
+        },
+        triggerSave(state) {
+            state.triggerSave = !state.triggerSave;
+        },
+        deleteAllImages(state) {
+            state.triggerSave = !state.triggerSave;
+            state.images = [];
         },
     },
     actions: {
-        async saveImage({ commit, state }, { image }) {
+        async saveImage({ state, commit }, { image }) {
             try {
                 //do server thingies
-                commit({ type: 'setImages', images: [image, ...state.images] });
+                commit({ type: 'saveImage', image });
+                state.background = state.defaultBackground;
             } catch (error) {
                 console.error(error);
             }
         },
-        async wipeAll({ state }) {
+        async wipeAll({ commit }) {
             try {
                 //wait for server delete then...
-                state.images = [];
+                commit({ type: 'deleteAllImages' });
             } catch (error) {
                 console.error(error);
             }
