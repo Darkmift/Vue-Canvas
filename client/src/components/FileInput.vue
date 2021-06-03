@@ -1,7 +1,7 @@
 <template>
 	<div class="color-picker flex-row">
 		<label for="favcolor">{{ label }}</label>
-		<input type="file" @change="previewFiles" multiple />
+		<input type="file" size="30" @change="previewFiles" multiple />
 	</div>
 </template>
 

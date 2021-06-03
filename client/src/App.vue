@@ -1,10 +1,10 @@
 <template>
 	<div id="app">
-		<div class="right-panel">
+		<div>
 			<controls />
 			<draw-screen />
 		</div>
-		<album class="left-panel" />
+		<album />
 	</div>
 </template>
 
