@@ -8,6 +8,9 @@ button
  {
     padding: 5px;
     margin: 0 2px;
+    &:hover {
+        filter: brightness(85%);
+    }
 }
 
 .flex {
@@ -32,4 +35,19 @@ button
 .flex-center {
     justify-content: center;
     align-items: center;
+}
+
+//transitions form ConfirmDeleteModal
+.modal-enter {
+    opacity: 0;
+}
+
+.modal-leave-active {
+    opacity: 0;
+}
+
+.modal-enter .modal-container,
+.modal-leave-active .modal-container {
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
 }

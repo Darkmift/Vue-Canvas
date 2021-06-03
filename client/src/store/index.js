@@ -10,6 +10,9 @@ export default new Vuex.Store({
         strokeStyle: '#000',
         lineWidth: 1,
         inputFile: null,
+        //will toggle values onclick
+        triggers: { saveNew: false, wipeAll: false },
+        images: [],
     },
     getters: {
         background({ background }) {
@@ -26,6 +29,12 @@ export default new Vuex.Store({
         },
         inputFile({ inputFile }) {
             return inputFile;
+        },
+        triggers({ triggers }) {
+            return triggers;
+        },
+        images({ images }) {
+            return images;
         },
     },
     mutations: {
@@ -44,6 +53,34 @@ export default new Vuex.Store({
         setInputFile(state, { inputFile }) {
             state.inputFile = inputFile;
         },
+        // setImages(state, { images }) {
+        //     state.images = images;
+        // },
+        toggleTrigger({ triggers }, { key }) {
+            if (triggers.hasOwnProperty(key)) {
+                triggers[key] = !triggers[key];
+                return;
+            }
+            console.error(`${key} not in triggers`);
+        },
     },
-    actions: {},
+    actions: {
+        async saveImage({ state }, { image }) {
+            try {
+                //do server thingies
+                state.images.unshift(image);
+                // commit({ type: 'setImages', images: [image, ...state.images] });
+            } catch (error) {
+                console.error(error);
+            }
+        },
+        async wipeAll({ state }) {
+            try {
+                //wait for server delete then...
+                state.images = [];
+            } catch (error) {
+                console.error(error);
+            }
+        },
+    },
 });
