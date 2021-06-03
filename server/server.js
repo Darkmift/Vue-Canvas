@@ -21,10 +21,6 @@ const mainRouter = require('./main.routes');
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.get('/testLive', (req, res) => {
-    res.json({ isLive: true });
-});
-
 app.use('/api', mainRouter);
 
 // global error handler

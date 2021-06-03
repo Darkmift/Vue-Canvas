@@ -1,16 +1,16 @@
 const imageStoreService = require('./imageStore.service');
 const Logger = require('../../services/logger.service');
-
+const { db } = require('../../services/jsonDb.service.js');
 async function addImage(req, res, next) {
     try {
+        const store = db;
         Logger.debug(req.body);
-        // const { _id } = req.params;
-        // if (!_id) {
-        //     throw new CustomError(400, '_id required');
-        // }
-        // const imageStore = await imageStoreService.getById(_id);
-        // res.send(imageStore);
-        res.send('mkay');
+        const { image } = req.body;
+        store.get('images').push(image);
+        const {
+            state: { images },
+        } = store.get();
+        res.send(images);
     } catch (error) {
         next(error);
     }

@@ -12,7 +12,7 @@
     "dependencies": {
         "cors": "^2.8.5",
         "express": "^4.17.1",
-        "lowdb": "^2.1.0",
+        "stormdb": "^0.4.1",
         "winston": "^3.3.3"
     }
 }
