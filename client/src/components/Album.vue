@@ -23,6 +23,7 @@
 <style scoped lang="scss">
 .album {
 	.images {
+		margin: 10px 0;
 		max-height: 85vh;
 		overflow-y: scroll;
 		img {
